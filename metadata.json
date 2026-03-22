@@ -1,0 +1,5 @@
+{
+  "name": "Sentic",
+  "description": "A newspaper-styled interactive tool to analyze headlines for emotional energy, bias, and editorial breakdown.",
+  "requestFramePermissions": []
+}
