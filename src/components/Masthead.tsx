@@ -15,7 +15,7 @@ export function Masthead() {
         <span className="hidden sm:inline">The Vibe Gazette</span>
         <span>{dateStr}</span>
       </div>
-      <h1 className="font-display text-5xl sm:text-6xl md:text-8xl text-center font-black tracking-tighter uppercase">
+      <h1 className="font-display text-5xl sm:text-6xl md:text-8xl text-center font-black tracking-tighter uppercase transition-all duration-300 hover:text-editorial hover:[text-shadow:4px_4px_0px_#111111] hover:-translate-y-1 cursor-default">
         Sentic
       </h1>
       <div className="flex justify-between items-start border-t border-ink pt-2 mt-2 font-mono text-[10px] sm:text-xs uppercase tracking-widest">
