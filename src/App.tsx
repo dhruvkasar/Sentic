@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import html2canvas from 'html2canvas';
 import { AnimatePresence } from 'motion/react';
 import { Masthead } from './components/Masthead';
@@ -11,17 +11,38 @@ import { analyzeHeadline, AnalysisResult } from './services/ai';
 import { audioService } from './utils/audio';
 import { Download, Volume2, VolumeX } from 'lucide-react';
 
+const LOADING_MESSAGES = [
+  "Consulting the Editor...",
+  "Checking Sources...",
+  "Running the Presses...",
+  "Analyzing Sentiments...",
+  "Fact-Checking Claims...",
+  "Formatting Layout..."
+];
+
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [headline, setHeadline] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingMsgIdx, setLoadingMsgIdx] = useState(0);
   const [error, setError] = useState('');
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    let interval: number;
+    if (isLoading) {
+      interval = window.setInterval(() => {
+        setLoadingMsgIdx((prev) => (prev + 1) % LOADING_MESSAGES.length);
+      }, 2000);
+    }
+    return () => clearInterval(interval);
+  }, [isLoading]);
+
   const handleAnalyze = async (text: string) => {
     setIsLoading(true);
+    setLoadingMsgIdx(0);
     setError('');
     setHeadline(text);
     
@@ -109,13 +130,19 @@ export default function App() {
             {isLoading && (
               <div className="flex flex-col items-center justify-center py-24 border-2 border-ink border-dashed">
                 <div className="w-16 h-16 border-4 border-ink border-t-editorial rounded-full animate-spin mb-4"></div>
-                <p className="font-mono uppercase tracking-widest font-bold animate-pulse">Analyzing Vibe...</p>
+                <p className="font-mono uppercase tracking-widest font-bold animate-pulse">
+                  {LOADING_MESSAGES[loadingMsgIdx]}
+                </p>
               </div>
             )}
 
             {error && (
-              <div className="bg-editorial text-bg p-4 mb-8 font-mono font-bold uppercase">
-                ERROR: {error}
+              <div className="border-4 border-editorial p-6 mb-8 relative bg-bg">
+                <div className="absolute top-0 left-0 bg-editorial text-bg font-mono text-xs font-bold uppercase px-2 py-1 -translate-y-full border-x-4 border-t-4 border-editorial">
+                  Press Halted
+                </div>
+                <h3 className="font-display text-2xl font-bold text-editorial uppercase mb-2">Analysis Failed</h3>
+                <p className="font-mono text-sm text-ink">{error}</p>
               </div>
             )}
 
@@ -134,6 +161,7 @@ export default function App() {
               onClick={() => {
                 setResult(null);
                 setHeadline('');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
               className="border-2 border-ink bg-transparent text-ink font-mono uppercase font-bold py-3 px-8 transition-colors duration-200 hover:bg-ink hover:text-bg"
             >

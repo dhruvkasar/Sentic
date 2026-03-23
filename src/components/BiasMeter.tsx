@@ -11,12 +11,14 @@ export function BiasMeter({ rating }: BiasMeterProps) {
   useEffect(() => {
     const r = rating.toLowerCase();
     let target = 0;
-    if (r.includes('left') && !r.includes('center')) target = -60;
-    else if (r.includes('center-left')) target = -30;
-    else if (r.includes('center') && !r.includes('right') && !r.includes('left')) target = 0;
-    else if (r.includes('center-right')) target = 30;
-    else if (r.includes('right') && !r.includes('center')) target = 60;
-    else target = 0; // Neutral or unknown
+    
+    if (r.includes('far-left') || r.includes('extreme left')) target = -80;
+    else if (r.includes('center-left') || r.includes('leans left') || r.includes('leaning left')) target = -30;
+    else if (r.includes('left')) target = -60;
+    else if (r.includes('far-right') || r.includes('extreme right')) target = 80;
+    else if (r.includes('center-right') || r.includes('leans right') || r.includes('leaning right')) target = 30;
+    else if (r.includes('right')) target = 60;
+    else target = 0; // Neutral, Center, or unknown
 
     // Animate to target
     setRotation(target);
