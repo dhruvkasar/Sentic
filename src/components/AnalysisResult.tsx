@@ -38,7 +38,7 @@ export function AnalysisResult({ result, headline }: AnalysisResultProps) {
       id="analysis-result"
     >
       {/* Column 1: Summary & Tone */}
-      <div className="md:col-span-2 pr-8 md:border-r border-ink">
+      <div className="md:col-span-2 pr-0 md:pr-8 md:border-r border-ink">
         <h2 className="font-display text-4xl md:text-5xl font-black mb-6 leading-none tracking-tighter uppercase">
           Editorial Breakdown
         </h2>
@@ -50,7 +50,7 @@ export function AnalysisResult({ result, headline }: AnalysisResultProps) {
         
         <div className="fleuron"></div>
 
-        <div className="grid grid-cols-2 gap-6 mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
           <div className="border border-ink p-4 newspaper-shadow bg-bg">
             <h4 className="font-mono text-xs uppercase tracking-widest mb-2 font-bold border-b border-ink pb-1">Tone</h4>
             <p className="font-display text-2xl font-bold uppercase">{result.tone}</p>

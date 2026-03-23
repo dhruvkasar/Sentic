@@ -30,7 +30,7 @@ export function InputZone({ onSubmit, isLoading }: InputZoneProps) {
           onChange={(e) => setText(e.target.value)}
           disabled={isLoading}
         ></textarea>
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
           <span className="font-mono text-xs text-ink/70" aria-live="polite">
             {text.length} characters
           </span>
@@ -38,7 +38,7 @@ export function InputZone({ onSubmit, isLoading }: InputZoneProps) {
             type="submit"
             aria-label="Analyze Vibe"
             disabled={isLoading || !text.trim()}
-            className="border-2 border-ink bg-transparent text-ink font-mono uppercase font-bold py-2 px-6 transition-colors duration-200 hover:bg-ink hover:text-bg disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto border-2 border-ink bg-transparent text-ink font-mono uppercase font-bold py-2 px-6 transition-colors duration-200 hover:bg-ink hover:text-bg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? 'Analyzing...' : 'Analyze Vibe'}
           </button>

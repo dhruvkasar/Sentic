@@ -75,9 +75,9 @@ export default function App() {
       </AnimatePresence>
 
       <div className="min-h-screen bg-bg text-ink p-4 md:p-8 lg:p-12 selection:bg-editorial selection:text-bg">
-        <div className="max-w-5xl mx-auto relative">
+        <div className="max-w-5xl mx-auto">
         {/* Controls */}
-        <div className="absolute top-0 right-0 flex gap-4 z-50">
+        <div className="flex justify-end gap-2 md:gap-4 mb-4">
           <button 
             onClick={toggleAudio}
             className="p-2 border border-ink hover:bg-ink hover:text-bg transition-colors"
@@ -97,7 +97,7 @@ export default function App() {
           )}
         </div>
 
-        <div ref={printRef} className="bg-bg p-4 md:p-8 border-8 border-ink">
+        <div ref={printRef} className="bg-bg p-4 md:p-8 border-4 md:border-8 border-ink">
           <Masthead />
           <Ticker />
           
